@@ -1,0 +1,121 @@
+/* projects/static/projects/css/style.css */
+
+/* General Styles */
+body {
+    padding-top: 60px; /* For fixed navbar */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Hero Section */
+#hero {
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('/static/projects/images/hero-bg.jpg');
+    background-size: cover;
+    background-position: center;
+    padding: 100px 0;
+    margin-top: -60px; /* To offset the body padding */
+}
+
+/* Card Styles */
+.card {
+    border-radius: 8px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.card-img-top {
+    height: 200px;
+    object-fit: cover;
+}
+
+/* Timeline for Education/Experience */
+.timeline {
+    position: relative;
+    padding: 20px 0;
+}
+
+.timeline::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 20px;
+    width: 4px;
+    background: #e9ecef;
+}
+
+.timeline-item {
+    position: relative;
+    margin-bottom: 30px;
+}
+
+.timeline-badge {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    position: absolute;
+    left: 14px;
+    top: 10px;
+    z-index: 1;
+}
+
+.timeline-panel {
+    margin-left: 50px;
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid #e9ecef;
+    background-color: #fff;
+}
+
+/* Skills Section */
+#skills .card {
+    min-height: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+#skills i {
+    color: #007bff;
+}
+
+/* Footer */
+footer .social-links a {
+    transition: transform 0.3s ease;
+}
+
+footer .social-links a:hover {
+    transform: translateY(-3px);
+}
+
+/* Media Queries */
+@media (min-width: 768px) {
+    .timeline::before {
+        left: 50%;
+    }
+    
+    .timeline-item {
+        margin-bottom: 50px;
+    }
+    
+    .timeline-badge {
+        left: 50%;
+        margin-left: -8px;
+    }
+    
+    .timeline-panel {
+        width: 44%;
+        float: left;
+        margin-left: 0;
+    }
+    
+    .timeline-item:nth-child(even) .timeline-panel {
+        float: right;
+    }
+}

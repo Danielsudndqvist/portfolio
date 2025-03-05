@@ -1,0 +1,175 @@
+{% extends 'projects/base.html' %}
+{% load static %}
+
+{% block content %}
+<!-- Hero Section -->
+<section id="hero" class="bg-dark text-white text-center py-5">
+    <div class="container">
+        <div class="row py-5">
+            <div class="col-lg-8 mx-auto">
+                <h1 class="display-4">Daniel Sundqvist</h1>
+                <p class="lead mb-4">Full Stack Developer passionate about building innovative applications</p>
+                <div class="d-flex justify-content-center gap-3">
+                    <a href="#featured-projects" class="btn btn-primary">View My Work</a>
+                    <a href="#contact" class="btn btn-outline-light">Contact Me</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Featured Projects -->
+<section id="featured-projects" class="py-5">
+    <div class="container">
+        <h2 class="text-center mb-5">Featured Projects</h2>
+        <div class="row g-4">
+            {% for project in featured_projects %}
+            <div class="col-md-6 col-lg-4">
+                <div class="card h-100">
+                    {% if project.image %}
+                    <img src="{{ project.image.url }}" class="card-img-top" alt="{{ project.title }}">
+                    {% else %}
+                    <img src="{% static 'projects/images/placeholder.jpg' %}" class="card-img-top" alt="Placeholder">
+                    {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title">{{ project.title }}</h5>
+                        <p class="card-text">{{ project.short_description }}</p>
+                        <div class="d-flex flex-wrap gap-1 mb-3">
+                            {% for tech in project.technologies.all %}
+                            <span class="badge bg-secondary">{{ tech.name }}</span>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="card-footer bg-white border-top-0">
+                        <div class="d-flex justify-content-between">
+                            {% if project.github_url %}
+                            <a href="{{ project.github_url }}" class="btn btn-sm btn-outline-dark" target="_blank">
+                                <i class="fab fa-github me-1"></i> GitHub
+                            </a>
+                            {% endif %}
+                            {% if project.live_url %}
+                            <a href="{{ project.live_url }}" class="btn btn-sm btn-primary" target="_blank">
+                                <i class="fas fa-external-link-alt me-1"></i> Live Demo
+                            </a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col text-center">
+                <p>No featured projects yet. Check back soon!</p>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="text-center mt-4">
+            <a href="{% url 'projects:project_list' %}" class="btn btn-outline-primary">View All Projects</a>
+        </div>
+    </div>
+</section>
+
+<!-- Skills Section -->
+<section id="skills" class="py-5 bg-light">
+    <div class="container">
+        <h2 class="text-center mb-5">My Skills</h2>
+        <div class="row g-4 justify-content-center">
+            {% for tech in technologies %}
+            <div class="col-4 col-md-3 col-lg-2">
+                <div class="card text-center h-100">
+                    <div class="card-body">
+                        {% if tech.icon %}
+                        <i class="{{ tech.icon }} fa-3x mb-3"></i>
+                        {% else %}
+                        <i class="fas fa-code fa-3x mb-3"></i>
+                        {% endif %}
+                        <h5 class="card-title h6">{{ tech.name }}</h5>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col text-center">
+                <p>Skills are being updated. Check back soon!</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- About Section -->
+<section id="about" class="py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <h2 class="mb-4">About Me</h2>
+                <p>Hello! I'm Daniel, a passionate full-stack developer with expertise in building web applications.</p>
+                <p>I enjoy solving complex problems and creating clean, efficient, and user-friendly applications. My journey in programming started with a fascination for how technology can improve people's lives.</p>
+                <p>When I'm not coding, you can find me exploring new technologies, contributing to open-source projects, or enjoying outdoor activities.</p>
+            </div>
+            <div class="col-lg-6">
+                <h3 class="mb-4">Education</h3>
+                <div class="timeline">
+                    {% for education in educations %}
+                    <div class="timeline-item">
+                        <div class="timeline-badge bg-primary"></div>
+                        <div class="timeline-panel">
+                            <div class="timeline-heading">
+                                <h4>{{ education.degree }}</h4>
+                                <h5>{{ education.institution }}</h5>
+                                <p><small class="text-muted">
+                                    {{ education.start_date|date:"Y" }} - 
+                                    {% if education.end_date %}
+                                        {{ education.end_date|date:"Y" }}
+                                    {% else %}
+                                        Present
+                                    {% endif %}
+                                </small></p>
+                            </div>
+                            <div class="timeline-body">
+                                <p>{{ education.description }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    {% empty %}
+                    <p>Education details coming soon.</p>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Contact Section -->
+<section id="contact" class="py-5 bg-light">
+    <div class="container">
+        <h2 class="text-center mb-5">Get In Touch</h2>
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-body">
+                        <form>
+                            <div class="mb-3">
+                                <label for="name" class="form-label">Name</label>
+                                <input type="text" class="form-control" id="name" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="email" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="message" class="form-label">Message</label>
+                                <textarea class="form-control" id="message" rows="5" required></textarea>
+                            </div>
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-primary">Send Message</button>
+                            </div>
+                            <div class="text-center mt-2">
+                                <small>* This form is currently not functional as it requires backend processing.</small>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
